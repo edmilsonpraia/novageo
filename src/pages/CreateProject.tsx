@@ -89,8 +89,8 @@ const CreateProject: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const countries = ['Angola', 'Namíbia', 'África do Sul'];
-  const sectors = ['Saúde', 'Educação', 'Turismo', 'Comércio', 'Transporte', 'Tecnologia'];
+  const countries = ['Angola', 'Namíbia', 'África do Sul', 'Congo (RDC)', 'Zâmbia', 'Tanzânia'];
+  const sectors = ['Petróleo e Gás', 'Mineração', 'Geofísica', 'Pesquisa Acadêmica', 'Consultoria Ambiental', 'Geologia Estrutural'];
   const priorities = [
     { value: 'low', label: 'Baixa', color: 'bg-green-100 text-green-800' },
     { value: 'medium', label: 'Média', color: 'bg-yellow-100 text-yellow-800' },
@@ -99,9 +99,9 @@ const CreateProject: React.FC = () => {
   ];
 
   const steps = [
-    { id: 1, title: 'Informações Básicas', icon: '📋', description: 'Dados principais do projeto' },
-    { id: 2, title: 'Planejamento', icon: '📅', description: 'Cronograma e objetivos' },
-    { id: 3, title: 'Equipe & Recursos', icon: '👥', description: 'Membros e orçamento' },
+    { id: 1, title: 'Informações Básicas', icon: '📋', description: 'Dados principais do projeto geológico' },
+    { id: 2, title: 'Planejamento', icon: '📅', description: 'Cronograma e objetivos técnicos' },
+    { id: 3, title: 'Equipe & Recursos', icon: '👥', description: 'Especialistas e orçamento' },
     { id: 4, title: 'Riscos & Marcos', icon: '⚠️', description: 'Gestão de riscos e milestones' },
     { id: 5, title: 'Revisão & Envio', icon: '✅', description: 'Confirmar e criar projeto' }
   ];
@@ -111,21 +111,24 @@ const CreateProject: React.FC = () => {
     const flags = {
       'Angola': '🇦🇴',
       'Namíbia': '🇳🇦',
-      'África do Sul': '🇿🇦'
+      'África do Sul': '🇿🇦',
+      'Congo (RDC)': '🇨🇩',
+      'Zâmbia': '🇿🇲',
+      'Tanzânia': '🇹🇿'
     };
     return flags[country as keyof typeof flags] || '🌍';
   };
 
   const getSectorIcon = (sector: string) => {
     const icons = {
-      'Saúde': '🏥',
-      'Educação': '🎓',
-      'Turismo': '🏨',
-      'Comércio': '🛒',
-      'Transporte': '✈️',
-      'Tecnologia': '💻'
+      'Petróleo e Gás': '⛽',
+      'Mineração': '⛏️',
+      'Geofísica': '🌍',
+      'Pesquisa Acadêmica': '🎓',
+      'Consultoria Ambiental': '🌱',
+      'Geologia Estrutural': '🗻'
     };
-    return icons[sector as keyof typeof icons] || '💼';
+    return icons[sector as keyof typeof icons] || '🏢';
   };
 
   // Form validation
@@ -257,8 +260,8 @@ const CreateProject: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Criar Novo Projeto Regional</h1>
-          <p className="text-lg text-gray-600">Desenvolva soluções inovadoras para Angola 🇦🇴 Namíbia 🇳🇦 África do Sul 🇿🇦</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Criar Novo Projeto Geológico</h1>
+          <p className="text-lg text-gray-600">Desenvolva soluções inovadoras em geociências para a região SADC 🇦🇴 🇳🇦 🇿🇦</p>
         </div>
 
         {/* Progress Indicator */}
@@ -268,14 +271,14 @@ const CreateProject: React.FC = () => {
               <div key={step.id} className="flex items-center">
                 <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 ${
                   currentStep >= step.id 
-                    ? 'bg-red-600 border-red-600 text-white' 
+                    ? 'bg-green-600 border-green-600 text-white' 
                     : 'bg-white border-gray-300 text-gray-500'
                 }`}>
                   <span className="text-xl">{step.icon}</span>
                 </div>
                 {index < steps.length - 1 && (
                   <div className={`w-full h-1 mx-4 ${
-                    currentStep > step.id ? 'bg-red-600' : 'bg-gray-200'
+                    currentStep > step.id ? 'bg-green-600' : 'bg-gray-200'
                   }`}></div>
                 )}
               </div>
@@ -317,10 +320,10 @@ const CreateProject: React.FC = () => {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.name ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="Ex: Sistema de Telemedicina Regional"
+                    placeholder="Ex: Interpretação Sísmica 3D - Bloco 15"
                   />
                   {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
                 </div>
@@ -329,15 +332,25 @@ const CreateProject: React.FC = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Cliente/Organização *
                   </label>
-                  <input
-                    type="text"
+                  <select
                     value={formData.client}
                     onChange={(e) => setFormData({ ...formData, client: e.target.value })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.client ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="Ex: Hospital Central de Luanda"
-                  />
+                  >
+                    <option value="">Selecione o cliente</option>
+                    <option value="Sonangol EP">Sonangol EP</option>
+                    <option value="Total Energies">Total Energies</option>
+                    <option value="Chevron Angola">Chevron Angola</option>
+                    <option value="Endiama EP">Endiama EP</option>
+                    <option value="Universidade Agostinho Neto">Universidade Agostinho Neto</option>
+                    <option value="ISPTEC">ISPTEC</option>
+                    <option value="Namdeb Diamond Corporation">Namdeb Diamond Corporation</option>
+                    <option value="University of Cape Town">University of Cape Town</option>
+                    <option value="Ministério dos Recursos Minerais">Ministério dos Recursos Minerais</option>
+                    <option value="Outro">Outro (especificar)</option>
+                  </select>
                   {errors.client && <p className="text-red-600 text-sm mt-1">{errors.client}</p>}
                 </div>
 
@@ -348,7 +361,7 @@ const CreateProject: React.FC = () => {
                   <select
                     value={formData.country}
                     onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.country ? 'border-red-300' : 'border-gray-300'
                     }`}
                   >
@@ -369,7 +382,7 @@ const CreateProject: React.FC = () => {
                   <select
                     value={formData.sector}
                     onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.sector ? 'border-red-300' : 'border-gray-300'
                     }`}
                   >
@@ -413,10 +426,10 @@ const CreateProject: React.FC = () => {
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     rows={4}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.description ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="Descreva os objetivos, escopo e benefícios esperados do projeto..."
+                    placeholder="Descreva os objetivos geológicos, escopo técnico e benefícios esperados do projeto..."
                   />
                   {errors.description && <p className="text-red-600 text-sm mt-1">{errors.description}</p>}
                   <p className="text-sm text-gray-500 mt-1">
@@ -439,7 +452,7 @@ const CreateProject: React.FC = () => {
                     type="date"
                     value={formData.startDate}
                     onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.startDate ? 'border-red-300' : 'border-gray-300'
                     }`}
                   />
@@ -454,7 +467,7 @@ const CreateProject: React.FC = () => {
                     type="date"
                     value={formData.endDate}
                     onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.endDate ? 'border-red-300' : 'border-gray-300'
                     }`}
                   />
@@ -463,18 +476,18 @@ const CreateProject: React.FC = () => {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Orçamento (USD) *
+                    Orçamento (AOA) *
                   </label>
                   <input
                     type="number"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: Number(e.target.value) })}
                     min="0"
-                    step="1000"
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent ${
+                    step="10000"
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent ${
                       errors.budget ? 'border-red-300' : 'border-gray-300'
                     }`}
-                    placeholder="50000"
+                    placeholder="850000"
                   />
                   {errors.budget && <p className="text-red-600 text-sm mt-1">{errors.budget}</p>}
                 </div>
@@ -496,12 +509,12 @@ const CreateProject: React.FC = () => {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <label className="block text-sm font-medium text-gray-700">
-                    Objetivos do Projeto
+                    Objetivos Técnicos do Projeto
                   </label>
                   <button
                     type="button"
                     onClick={() => addArrayItem('objectives', '')}
-                    className="text-red-600 hover:text-red-700 text-sm font-medium"
+                    className="text-green-600 hover:text-green-700 text-sm font-medium"
                   >
                     + Adicionar Objetivo
                   </button>
@@ -514,8 +527,8 @@ const CreateProject: React.FC = () => {
                         type="text"
                         value={objective}
                         onChange={(e) => updateArrayItem('objectives', index, e.target.value)}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                        placeholder="Ex: Melhorar o acesso à saúde em áreas rurais"
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        placeholder="Ex: Identificar estruturas geológicas favoráveis à exploração petrolífera"
                       />
                       {formData.objectives.length > 1 && (
                         <button
@@ -542,7 +555,7 @@ const CreateProject: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => addArrayItem('deliverables', '')}
-                    className="text-red-600 hover:text-red-700 text-sm font-medium"
+                    className="text-green-600 hover:text-green-700 text-sm font-medium"
                   >
                     + Adicionar Entrega
                   </button>
@@ -555,8 +568,8 @@ const CreateProject: React.FC = () => {
                         type="text"
                         value={deliverable}
                         onChange={(e) => updateArrayItem('deliverables', index, e.target.value)}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                        placeholder="Ex: Aplicativo móvel para consultas"
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        placeholder="Ex: Relatório de interpretação sísmica estrutural e estratigráfica"
                       />
                       {formData.deliverables.length > 1 && (
                         <button
@@ -581,15 +594,15 @@ const CreateProject: React.FC = () => {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Equipe do Projeto</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">Equipe de Especialistas</h3>
                   <button
                     type="button"
                     onClick={() => addArrayItem('teamMembers', {
                       name: '', role: '', email: '', country: '', expertise: ''
                     })}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm"
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
                   >
-                    + Adicionar Membro
+                    + Adicionar Especialista
                   </button>
                 </div>
 
@@ -597,7 +610,7 @@ const CreateProject: React.FC = () => {
                   {formData.teamMembers.map((member, index) => (
                     <div key={index} className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-medium text-gray-900">Membro {index + 1}</h4>
+                        <h4 className="font-medium text-gray-900">Especialista {index + 1}</h4>
                         {formData.teamMembers.length > 1 && (
                           <button
                             type="button"
@@ -616,27 +629,36 @@ const CreateProject: React.FC = () => {
                           type="text"
                           value={member.name}
                           onChange={(e) => updateArrayItem('teamMembers', index, { ...member, name: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                           placeholder="Nome completo"
                         />
-                        <input
-                          type="text"
+                        <select
                           value={member.role}
                           onChange={(e) => updateArrayItem('teamMembers', index, { ...member, role: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                          placeholder="Cargo/Função"
-                        />
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        >
+                          <option value="">Selecione a função</option>
+                          <option value="Geólogo Lead">Geólogo Lead</option>
+                          <option value="Geofísico Sênior">Geofísico Sênior</option>
+                          <option value="Intérprete Sísmico">Intérprete Sísmico</option>
+                          <option value="Petrofísico">Petrofísico</option>
+                          <option value="Especialista Petrel">Especialista Petrel</option>
+                          <option value="Analista Python">Analista Python</option>
+                          <option value="Especialista QGIS">Especialista QGIS</option>
+                          <option value="Geólogo de Campo">Geólogo de Campo</option>
+                          <option value="Coordenador de Projeto">Coordenador de Projeto</option>
+                        </select>
                         <input
                           type="email"
                           value={member.email}
                           onChange={(e) => updateArrayItem('teamMembers', index, { ...member, email: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                           placeholder="E-mail"
                         />
                         <select
                           value={member.country}
                           onChange={(e) => updateArrayItem('teamMembers', index, { ...member, country: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         >
                           <option value="">Selecione o país</option>
                           {countries.map(country => (
@@ -649,8 +671,8 @@ const CreateProject: React.FC = () => {
                           type="text"
                           value={member.expertise}
                           onChange={(e) => updateArrayItem('teamMembers', index, { ...member, expertise: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent md:col-span-2"
-                          placeholder="Área de especialidade"
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent md:col-span-2"
+                          placeholder="Especialidade (ex: Interpretação sísmica 3D, modelagem Petrel, Python para geociências)"
                         />
                       </div>
                     </div>
@@ -668,7 +690,7 @@ const CreateProject: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => addArrayItem('stakeholders', '')}
-                    className="text-red-600 hover:text-red-700 text-sm font-medium"
+                    className="text-green-600 hover:text-green-700 text-sm font-medium"
                   >
                     + Adicionar Stakeholder
                   </button>
@@ -681,8 +703,8 @@ const CreateProject: React.FC = () => {
                         type="text"
                         value={stakeholder}
                         onChange={(e) => updateArrayItem('stakeholders', index, e.target.value)}
-                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                        placeholder="Ex: Ministério da Saúde de Angola"
+                        className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        placeholder="Ex: Ministério dos Recursos Minerais e Petróleo"
                       />
                       {formData.stakeholders.length > 1 && (
                         <button
@@ -707,13 +729,13 @@ const CreateProject: React.FC = () => {
                   <div className="text-center">
                     <p className="text-sm text-gray-600">Orçamento Total</p>
                     <p className="text-2xl font-bold text-blue-600">
-                      ${formData.budget.toLocaleString()}
+                      AOA {formData.budget.toLocaleString()}
                     </p>
                   </div>
                   <div className="text-center">
-                    <p className="text-sm text-gray-600">Por Membro da Equipe</p>
+                    <p className="text-sm text-gray-600">Por Especialista</p>
                     <p className="text-xl font-bold text-gray-700">
-                      ${formData.budget > 0 && formData.teamMembers.length > 0 
+                      AOA {formData.budget > 0 && formData.teamMembers.length > 0 
                         ? (formData.budget / formData.teamMembers.length).toLocaleString()
                         : '0'
                       }
@@ -739,13 +761,13 @@ const CreateProject: React.FC = () => {
               {/* Risks Section */}
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Gestão de Riscos</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">Gestão de Riscos Geológicos</h3>
                   <button
                     type="button"
                     onClick={() => addArrayItem('risks', {
                       description: '', level: 'medium', mitigation: '', probability: 50, impact: 50
                     })}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm"
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
                   >
                     + Adicionar Risco
                   </button>
@@ -774,15 +796,15 @@ const CreateProject: React.FC = () => {
                           type="text"
                           value={risk.description}
                           onChange={(e) => updateArrayItem('risks', index, { ...risk, description: e.target.value })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                          placeholder="Descrição do risco"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                          placeholder="Ex: Qualidade inadequada dos dados sísmicos"
                         />
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                           <select
                             value={risk.level}
                             onChange={(e) => updateArrayItem('risks', index, { ...risk, level: e.target.value as any })}
-                            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                           >
                             <option value="low">🟢 Baixo</option>
                             <option value="medium">🟡 Médio</option>
@@ -819,9 +841,9 @@ const CreateProject: React.FC = () => {
                         <textarea
                           value={risk.mitigation}
                           onChange={(e) => updateArrayItem('risks', index, { ...risk, mitigation: e.target.value })}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                           rows={2}
-                          placeholder="Plano de mitigação"
+                          placeholder="Plano de mitigação do risco"
                         />
                         
                         <div className="bg-white p-2 rounded border">
@@ -845,13 +867,13 @@ const CreateProject: React.FC = () => {
               {/* Milestones Section */}
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Marcos do Projeto</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">Marcos Técnicos do Projeto</h3>
                   <button
                     type="button"
                     onClick={() => addArrayItem('milestones', {
                       title: '', description: '', dueDate: '', priority: 'medium'
                     })}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm"
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm"
                   >
                     + Adicionar Marco
                   </button>
@@ -876,33 +898,41 @@ const CreateProject: React.FC = () => {
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-                        <input
-                          type="text"
+                        <select
                           value={milestone.title}
                           onChange={(e) => updateArrayItem('milestones', index, { ...milestone, title: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                          placeholder="Título do marco"
-                        />
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        >
+                          <option value="">Selecione o tipo de marco</option>
+                          <option value="Aquisição de Dados">Aquisição de Dados</option>
+                          <option value="Processamento de Dados">Processamento de Dados</option>
+                          <option value="Interpretação Estrutural">Interpretação Estrutural</option>
+                          <option value="Interpretação Estratigráfica">Interpretação Estratigráfica</option>
+                          <option value="Modelagem Petrel">Modelagem Petrel</option>
+                          <option value="Análise Petrofísica">Análise Petrofísica</option>
+                          <option value="Relatório Técnico">Relatório Técnico</option>
+                          <option value="Apresentação Final">Apresentação Final</option>
+                        </select>
                         <input
                           type="date"
                           value={milestone.dueDate}
                           onChange={(e) => updateArrayItem('milestones', index, { ...milestone, dueDate: e.target.value })}
-                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                         />
                       </div>
                       
                       <textarea
                         value={milestone.description}
                         onChange={(e) => updateArrayItem('milestones', index, { ...milestone, description: e.target.value })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent mb-3"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent mb-3"
                         rows={2}
-                        placeholder="Descrição do marco"
+                        placeholder="Descrição técnica do marco"
                       />
                       
                       <select
                         value={milestone.priority}
                         onChange={(e) => updateArrayItem('milestones', index, { ...milestone, priority: e.target.value as any })}
-                        className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                        className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                       >
                         <option value="low">Baixa Prioridade</option>
                         <option value="medium">Média Prioridade</option>
@@ -919,27 +949,27 @@ const CreateProject: React.FC = () => {
           {currentStep === 5 && (
             <div className="space-y-8">
               {/* Project Score */}
-              <div className="bg-gradient-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-6">
+              <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
                 <div className="text-center">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">Score de Completude do Projeto</h3>
-                  <div className="text-4xl font-bold text-red-600 mb-2">{calculateProjectScore()}%</div>
+                  <div className="text-4xl font-bold text-green-600 mb-2">{calculateProjectScore()}%</div>
                   <div className="w-full bg-gray-200 rounded-full h-3 mb-4">
                     <div
-                      className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full transition-all duration-500"
+                      className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500"
                       style={{ width: `${calculateProjectScore()}%` }}
                     ></div>
                   </div>
                   <p className="text-gray-600">
-                    {calculateProjectScore() >= 80 ? '🎉 Excelente! Projeto bem estruturado.' :
-                     calculateProjectScore() >= 60 ? '✅ Bom! Algumas informações podem ser melhoradas.' :
-                     '⚠️ Projeto precisa de mais detalhes para melhor avaliação.'}
+                    {calculateProjectScore() >= 80 ? '🎉 Excelente! Projeto geológico bem estruturado.' :
+                     calculateProjectScore() >= 60 ? '✅ Bom! Algumas informações técnicas podem ser melhoradas.' :
+                     '⚠️ Projeto precisa de mais detalhes técnicos para melhor avaliação.'}
                   </p>
                 </div>
               </div>
 
               {/* Project Summary */}
               <div className="bg-white border border-gray-200 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Resumo do Projeto</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-6">Resumo do Projeto Geológico</h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -1003,7 +1033,7 @@ const CreateProject: React.FC = () => {
                       <div className="flex justify-between">
                         <span className="text-gray-500">Orçamento:</span>
                         <span className="font-medium text-green-600">
-                          ${formData.budget.toLocaleString()}
+                          AOA {formData.budget.toLocaleString()}
                         </span>
                       </div>
                     </div>
@@ -1012,7 +1042,7 @@ const CreateProject: React.FC = () => {
 
                 {/* Team Summary */}
                 <div className="mt-6">
-                  <h4 className="font-semibold text-gray-700 mb-3">Equipe ({formData.teamMembers.filter(m => m.name.trim()).length} membros)</h4>
+                  <h4 className="font-semibold text-gray-700 mb-3">Equipe Técnica ({formData.teamMembers.filter(m => m.name.trim()).length} especialistas)</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {formData.teamMembers.filter(member => member.name.trim()).map((member, index) => (
                       <div key={index} className="bg-gray-50 p-3 rounded-lg">
@@ -1029,7 +1059,7 @@ const CreateProject: React.FC = () => {
                 {/* Risks Summary */}
                 {formData.risks.some(risk => risk.description.trim()) && (
                   <div className="mt-6">
-                    <h4 className="font-semibold text-gray-700 mb-3">Principais Riscos</h4>
+                    <h4 className="font-semibold text-gray-700 mb-3">Principais Riscos Geológicos</h4>
                     <div className="space-y-2">
                       {formData.risks.filter(risk => risk.description.trim()).map((risk, index) => (
                         <div key={index} className="flex items-center gap-3 p-2 bg-gray-50 rounded">
@@ -1050,7 +1080,7 @@ const CreateProject: React.FC = () => {
                 {/* Milestones Summary */}
                 {formData.milestones.some(milestone => milestone.title.trim()) && (
                   <div className="mt-6">
-                    <h4 className="font-semibold text-gray-700 mb-3">Marcos Principais</h4>
+                    <h4 className="font-semibold text-gray-700 mb-3">Marcos Técnicos Principais</h4>
                     <div className="space-y-2">
                       {formData.milestones.filter(milestone => milestone.title.trim()).map((milestone, index) => (
                         <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded">
@@ -1069,14 +1099,14 @@ const CreateProject: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Requisitos Técnicos
+                    Requisitos Técnicos e Softwares
                   </label>
                   <textarea
                     value={formData.requirements}
                     onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                    placeholder="Descreva os requisitos técnicos, infraestrutura necessária, tecnologias..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Descreva os requisitos técnicos, softwares necessários (Petrel, Python, QGIS), infraestrutura, equipamentos geológicos..."
                   />
                 </div>
 
@@ -1088,8 +1118,8 @@ const CreateProject: React.FC = () => {
                     value={formData.expectedOutcomes}
                     onChange={(e) => setFormData({ ...formData, expectedOutcomes: e.target.value })}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                    placeholder="Quais os resultados e impactos esperados com este projeto..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Quais os resultados e impactos esperados com este projeto geológico..."
                   />
                 </div>
 
@@ -1101,8 +1131,8 @@ const CreateProject: React.FC = () => {
                     value={formData.communicationPlan}
                     onChange={(e) => setFormData({ ...formData, communicationPlan: e.target.value })}
                     rows={3}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                    placeholder="Como será a comunicação entre equipe, stakeholders e clientes..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Como será a comunicação entre equipe técnica, stakeholders e cliente..."
                   />
                 </div>
               </div>
@@ -1134,7 +1164,7 @@ const CreateProject: React.FC = () => {
               <button
                 type="button"
                 onClick={nextStep}
-                className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium"
+                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium"
               >
                 Próximo →
               </button>
@@ -1143,7 +1173,7 @@ const CreateProject: React.FC = () => {
                 type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="bg-red-600 text-white px-8 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -1173,7 +1203,7 @@ const CreateProject: React.FC = () => {
               <div
                 key={step.id}
                 className={`w-2 h-2 rounded-full transition-all ${
-                  currentStep >= step.id ? 'bg-red-600' : 'bg-gray-300'
+                  currentStep >= step.id ? 'bg-green-600' : 'bg-gray-300'
                 }`}
               ></div>
             ))}
@@ -1183,10 +1213,10 @@ const CreateProject: React.FC = () => {
         {/* Footer */}
         <div className="mt-12 text-center bg-gray-100 rounded-xl p-6">
           <p className="text-gray-600 mb-2">
-            <strong>Desenvolvido por:</strong> Valdimir Jacinto Esteves
+            <strong>Desenvolvido por:</strong> MSc. Zongo Armando
           </p>
           <p className="text-sm text-gray-500">
-            © 2024 Africa's Hands • Conectando Angola, Namíbia e África do Sul
+            © 2024 NovaGeo • Consultoria e Formação em Geociências
           </p>
         </div>
       </div>

@@ -47,12 +47,12 @@ const Analytics: React.FC = () => {
 
   // Dados de analytics por período
   const analyticsData: AnalyticsData[] = [
-    { period: '2024-01', projects: 3, revenue: 180000, clients: 35, teamMembers: 22 },
-    { period: '2024-02', projects: 4, revenue: 220000, clients: 38, teamMembers: 24 },
-    { period: '2024-03', projects: 5, revenue: 265000, clients: 42, teamMembers: 26 },
-    { period: '2024-04', projects: 4, revenue: 285000, clients: 43, teamMembers: 27 },
-    { period: '2024-05', projects: 5, revenue: 315000, clients: 45, teamMembers: 28 },
-    { period: '2024-06', projects: 5, revenue: 465000, clients: 45, teamMembers: 28 }
+    { period: '2024-01', projects: 2, revenue: 320000, clients: 12, teamMembers: 8 },
+    { period: '2024-02', projects: 3, revenue: 485000, clients: 15, teamMembers: 10 },
+    { period: '2024-03', projects: 4, revenue: 620000, clients: 18, teamMembers: 12 },
+    { period: '2024-04', projects: 5, revenue: 780000, clients: 22, teamMembers: 14 },
+    { period: '2024-05', projects: 6, revenue: 950000, clients: 25, teamMembers: 16 },
+    { period: '2024-06', projects: 7, revenue: 1150000, clients: 28, teamMembers: 18 }
   ];
 
   // Métricas por país
@@ -60,85 +60,85 @@ const Analytics: React.FC = () => {
     {
       country: 'Angola',
       flag: '🇦🇴',
-      projects: 2,
-      revenue: 235000,
-      clients: 15,
-      teamSize: 8,
-      avgProgress: 62,
-      topSector: 'Saúde'
+      projects: 5,
+      revenue: 890000,
+      clients: 18,
+      teamSize: 12,
+      avgProgress: 68,
+      topSector: 'Petróleo e Gás'
     },
     {
       country: 'Namíbia',
       flag: '🇳🇦',
       projects: 2,
-      revenue: 110000,
-      clients: 12,
-      teamSize: 6,
-      avgProgress: 45,
-      topSector: 'Comércio'
+      revenue: 185000,
+      clients: 6,
+      teamSize: 4,
+      avgProgress: 52,
+      topSector: 'Mineração'
     },
     {
       country: 'África do Sul',
       flag: '🇿🇦',
       projects: 1,
-      revenue: 120000,
-      clients: 18,
-      teamSize: 14,
-      avgProgress: 100,
-      topSector: 'Educação'
+      revenue: 75000,
+      clients: 4,
+      teamSize: 2,
+      avgProgress: 85,
+      topSector: 'Pesquisa Acadêmica'
     }
   ];
 
   // Performance por setor
   const sectorPerformance: SectorPerformance[] = [
     {
-      sector: 'Saúde',
-      icon: '🏥',
-      projects: 1,
-      revenue: 85000,
-      avgProgress: 65,
-      growth: 15.5,
+      sector: 'Petróleo e Gás',
+      icon: '⛽',
+      projects: 4,
+      revenue: 720000,
+      avgProgress: 72,
+      growth: 28.5,
       status: 'growing'
     },
     {
-      sector: 'Educação',
+      sector: 'Mineração',
+      icon: '⛏️',
+      projects: 2,
+      revenue: 280000,
+      avgProgress: 58,
+      growth: 15.8,
+      status: 'growing'
+    },
+    {
+      sector: 'Geofísica',
+      icon: '🌍',
+      projects: 1,
+      revenue: 95000,
+      avgProgress: 45,
+      growth: 12.3,
+      status: 'stable'
+    },
+    {
+      sector: 'Pesquisa Acadêmica',
       icon: '🎓',
       projects: 1,
-      revenue: 120000,
-      avgProgress: 100,
-      growth: 8.2,
+      revenue: 55000,
+      avgProgress: 85,
+      growth: 8.7,
       status: 'stable'
     },
     {
-      sector: 'Comércio',
-      icon: '🛒',
-      projects: 1,
-      revenue: 45000,
-      avgProgress: 50,
-      growth: 22.8,
-      status: 'growing'
-    },
-    {
-      sector: 'Turismo',
-      icon: '🏨',
-      projects: 1,
-      revenue: 65000,
-      avgProgress: 40,
-      growth: 5.1,
+      sector: 'Consultoria Ambiental',
+      icon: '🌱',
+      projects: 0,
+      revenue: 0,
+      avgProgress: 0,
+      growth: 0,
       status: 'stable'
     },
     {
-      sector: 'Transporte',
-      icon: '✈️',
-      projects: 1,
-      revenue: 150000,
-      avgProgress: 10,
-      growth: -2.3,
-      status: 'declining'
-    },
-    {
-      sector: 'Tecnologia',
-      icon: '💻',
+      sector: 'Geologia Estrutural',
+      icon: '🗻',
       projects: 0,
       revenue: 0,
       avgProgress: 0,
@@ -151,53 +151,63 @@ const Analytics: React.FC = () => {
   const projectHealth: ProjectHealth[] = [
     {
       id: 1,
-      name: 'Rede de Telemedicina Regional',
+      name: 'Interpretação Sísmica 3D - Bloco 15',
       country: 'Angola',
       progress: 65,
-      budget: 85000,
-      spent: 45000,
+      budget: 850000,
+      spent: 553000,
       health: 'good',
-      daysRemaining: 67
+      daysRemaining: 87
     },
     {
       id: 2,
-      name: 'Marketplace de Artesanato Africano',
-      country: 'Namíbia',
-      progress: 50,
-      budget: 45000,
-      spent: 23000,
+      name: 'Modelagem Estática - Campo Girassol',
+      country: 'Angola',
+      progress: 90,
+      budget: 1200000,
+      spent: 1080000,
       health: 'excellent',
-      daysRemaining: 92
+      daysRemaining: 15
     },
     {
       id: 3,
-      name: 'Sistema de Intercâmbio Universitário',
-      country: 'África do Sul',
+      name: 'Análise Petrofísica - Poços 7A/7B',
+      country: 'Angola',
+      progress: 45,
+      budget: 650000,
+      spent: 292500,
+      health: 'excellent',
+      daysRemaining: 142
+    },
+    {
+      id: 4,
+      name: 'Prospecção Mineral - Lunda Norte',
+      country: 'Angola',
+      progress: 30,
+      budget: 950000,
+      spent: 285000,
+      health: 'warning',
+      daysRemaining: 198
+    },
+    {
+      id: 5,
+      name: 'Levantamento Geofísico - Erongo',
+      country: 'Namíbia',
+      progress: 20,
+      budget: 380000,
+      spent: 76000,
+      health: 'critical',
+      daysRemaining: 245
+    },
+    {
+      id: 6,
+      name: 'Automação Python - ISPTEC',
+      country: 'Angola',
       progress: 100,
       budget: 120000,
       spent: 118000,
       health: 'excellent',
       daysRemaining: 0
-    },
-    {
-      id: 4,
-      name: 'App de Turismo Sustentável',
-      country: 'Namíbia',
-      progress: 40,
-      budget: 65000,
-      spent: 30000,
-      health: 'warning',
-      daysRemaining: 127
-    },
-    {
-      id: 5,
-      name: 'Plataforma de Transporte Regional',
-      country: 'Angola',
-      progress: 10,
-      budget: 150000,
-      spent: 15000,
-      health: 'critical',
-      daysRemaining: 235
     }
   ];
 
@@ -210,7 +220,7 @@ const Analytics: React.FC = () => {
 
   const metrics = [
     { value: 'revenue', label: 'Receita', icon: '💰', color: 'text-green-600' },
-    { value: 'projects', label: 'Projetos', icon: '🚀', color: 'text-blue-600' },
+    { value: 'projects', label: 'Projetos', icon: '🛢️', color: 'text-blue-600' },
     { value: 'clients', label: 'Clientes', icon: '🤝', color: 'text-purple-600' },
     { value: 'team', label: 'Equipe', icon: '👥', color: 'text-indigo-600' }
   ];
@@ -219,7 +229,9 @@ const Analytics: React.FC = () => {
     const flags = {
       'Angola': '🇦🇴',
       'Namíbia': '🇳🇦',
-      'África do Sul': '🇿🇦'
+      'África do Sul': '🇿🇦',
+      'Congo (RDC)': '🇨🇩',
+      'Zâmbia': '🇿🇲'
     };
     return flags[country as keyof typeof flags] || '🌍';
   };
@@ -284,8 +296,8 @@ const Analytics: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Analytics & KPIs Regionais</h1>
-          <p className="text-gray-600">Métricas detalhadas e insights da performance regional Africa's Hands</p>
+          <h1 className="text-3xl font-bold text-gray-900">Analytics & KPIs Geológicos</h1>
+          <p className="text-gray-600">Métricas detalhadas e insights da performance NovaGeo - Consultoria em Geociências</p>
         </div>
         
         <div className="flex gap-3">
@@ -301,7 +313,7 @@ const Analytics: React.FC = () => {
             ))}
           </select>
           
-          <button className="bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-red-700 transition-colors">
+          <button className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700 transition-colors">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
@@ -325,7 +337,7 @@ const Analytics: React.FC = () => {
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-green-600">📈 +12.5%</span>
+            <span className="text-green-600">📈 +35.8%</span>
             <span className="text-gray-500 ml-1">vs período anterior</span>
           </div>
         </div>
@@ -335,7 +347,7 @@ const Analytics: React.FC = () => {
             <div>
               <p className="text-sm font-medium text-gray-600">ROI Médio</p>
               <p className="text-2xl font-bold text-blue-600">
-                {((kpis.totalRevenue - (kpis.totalRevenue * 0.7)) / (kpis.totalRevenue * 0.7) * 100).toFixed(1)}%
+                {((kpis.totalRevenue - (kpis.totalRevenue * 0.65)) / (kpis.totalRevenue * 0.65) * 100).toFixed(1)}%
               </p>
             </div>
             <div className="p-3 bg-blue-100 rounded-full">
@@ -343,7 +355,7 @@ const Analytics: React.FC = () => {
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-blue-600">Excelente performance</span>
+            <span className="text-blue-600">Performance excepcional</span>
           </div>
         </div>
 
@@ -360,7 +372,7 @@ const Analytics: React.FC = () => {
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="text-gray-500">Receita por membro</span>
+            <span className="text-gray-500">Receita por geólogo</span>
           </div>
         </div>
 
@@ -388,7 +400,7 @@ const Analytics: React.FC = () => {
       {/* Gráfico de Tendências */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-gray-900">Tendências de Performance</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Tendências de Performance Geológica</h2>
           
           <div className="flex gap-2">
             {metrics.map((metric) => (
@@ -397,7 +409,7 @@ const Analytics: React.FC = () => {
                 onClick={() => setSelectedMetric(metric.value)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   selectedMetric === metric.value
-                    ? 'bg-red-600 text-white'
+                    ? 'bg-green-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
@@ -413,11 +425,11 @@ const Analytics: React.FC = () => {
           {analyticsData.map((data, index) => {
             const getValue = () => {
               switch (selectedMetric) {
-                case 'revenue': return data.revenue / 10000;
-                case 'projects': return data.projects * 8;
-                case 'clients': return data.clients * 2;
-                case 'team': return data.teamMembers * 3;
-                default: return data.revenue / 10000;
+                case 'revenue': return data.revenue / 15000;
+                case 'projects': return data.projects * 12;
+                case 'clients': return data.clients * 4;
+                case 'team': return data.teamMembers * 6;
+                default: return data.revenue / 15000;
               }
             };
             
@@ -428,7 +440,7 @@ const Analytics: React.FC = () => {
             return (
               <div key={index} className="flex flex-col items-center gap-2">
                 <div 
-                  className="bg-gradient-to-t from-red-600 to-red-400 rounded-t transition-all duration-500 hover:scale-105 w-8"
+                  className="bg-gradient-to-t from-green-600 to-green-400 rounded-t transition-all duration-500 hover:scale-105 w-8"
                   style={{ height: `${Math.min(percentage, 100)}%` }}
                 ></div>
                 <span className="text-xs text-gray-600 transform -rotate-45">
@@ -441,12 +453,12 @@ const Analytics: React.FC = () => {
 
         <div className="mt-4 flex justify-center gap-6 text-sm text-gray-600">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 bg-red-600 rounded-full"></div>
-            <span>Crescimento Sustentável</span>
+            <div className="w-3 h-3 bg-green-600 rounded-full"></div>
+            <span>Crescimento Exponencial</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>📈</span>
-            <span>Tendência Positiva</span>
+            <span>🛢️</span>
+            <span>Setor Petrolífero em Alta</span>
           </div>
         </div>
       </div>
@@ -496,7 +508,7 @@ const Analytics: React.FC = () => {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <div 
-                      className="bg-gradient-to-r from-red-500 to-red-600 h-3 rounded-full transition-all duration-500"
+                      className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-500"
                       style={{ width: `${country.avgProgress}%` }}
                     ></div>
                   </div>
@@ -516,7 +528,7 @@ const Analytics: React.FC = () => {
 
       {/* Performance por Setor */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Performance por Setor</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">Performance por Setor Geológico</h2>
         
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -547,7 +559,7 @@ const Analytics: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <div className="w-16 bg-gray-200 rounded-full h-2">
                         <div
-                          className="bg-red-600 h-2 rounded-full"
+                          className="bg-green-600 h-2 rounded-full"
                           style={{ width: `${sector.avgProgress}%` }}
                         ></div>
                       </div>
@@ -581,7 +593,7 @@ const Analytics: React.FC = () => {
 
       {/* Saúde dos Projetos */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Saúde dos Projetos</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">Saúde dos Projetos Geológicos</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {projectHealth.map((project) => (
@@ -659,7 +671,7 @@ const Analytics: React.FC = () => {
                 <div>
                   <h3 className="font-semibold text-green-800">Oportunidade de Crescimento</h3>
                   <p className="text-sm text-green-700 mt-1">
-                    O setor de Comércio apresenta 22.8% de crescimento. Considere expandir investimentos em projetos similares na região.
+                    O setor de Petróleo e Gás apresenta 28.5% de crescimento. Angola lidera com 89% da receita total.
                   </p>
                 </div>
               </div>
@@ -671,7 +683,7 @@ const Analytics: React.FC = () => {
                 <div>
                   <h3 className="font-semibold text-yellow-800">Atenção Necessária</h3>
                   <p className="text-sm text-yellow-700 mt-1">
-                    Projeto de Transporte Regional está com apenas 10% de progresso. Recomenda-se revisão do cronograma.
+                    Projeto de Levantamento Geofísico na Namíbia está com apenas 20% de progresso. Recomenda-se revisão.
                   </p>
                 </div>
               </div>
@@ -681,9 +693,9 @@ const Analytics: React.FC = () => {
               <div className="flex items-start gap-3">
                 <span className="text-blue-600 text-xl">📊</span>
                 <div>
-                  <h3 className="font-semibold text-blue-800">Performance Excelente</h3>
+                  <h3 className="font-semibold text-blue-800">Performance Excepcional</h3>
                   <p className="text-sm text-blue-700 mt-1">
-                    Angola apresenta a maior receita por projeto (${(235000/2).toLocaleString()}). Modelo de sucesso para replicar.
+                    Projetos de modelagem Petrel apresentam 95% de taxa de sucesso. Referência no mercado angolano.
                   </p>
                 </div>
               </div>
@@ -693,9 +705,9 @@ const Analytics: React.FC = () => {
               <div className="flex items-start gap-3">
                 <span className="text-purple-600 text-xl">🎯</span>
                 <div>
-                  <h3 className="font-semibold text-purple-800">Meta Atingida</h3>
+                  <h3 className="font-semibold text-purple-800">Meta Superada</h3>
                   <p className="text-sm text-purple-700 mt-1">
-                    ROI médio de 42.9% supera a meta de 35%. Excelente performance financeira regional.
+                    ROI médio de 53.8% supera a meta de 45%. Excelente performance em projetos sísmicos.
                   </p>
                 </div>
               </div>
@@ -713,15 +725,15 @@ const Analytics: React.FC = () => {
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-1">•</span>
-                  <span>Aumentar projetos de Saúde em Angola (ROI atual: 89%)</span>
+                  <span>Aumentar projetos sísmicos em Angola (ROI atual: 65%)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-1">•</span>
-                  <span>Explorar setor de Tecnologia em todos os países</span>
+                  <span>Explorar setor de Mineração na Namíbia</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-1">•</span>
-                  <span>Replicar modelo de sucesso da UCT na região</span>
+                  <span>Expandir cursos Python para geociências</span>
                 </li>
               </ul>
             </div>
@@ -731,33 +743,33 @@ const Analytics: React.FC = () => {
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-start gap-2">
                   <span className="text-blue-500 mt-1">•</span>
-                  <span>Redistribuir equipe: África do Sul → Angola/Namíbia</span>
+                  <span>Contratar mais especialistas em Petrel</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-500 mt-1">•</span>
-                  <span>Implementar metodologias ágeis em projetos lentos</span>
+                  <span>Implementar metodologia ágil em projetos de campo</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-blue-500 mt-1">•</span>
-                  <span>Criar centro de excelência em Luanda</span>
+                  <span>Criar laboratório de análise em Luanda</span>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">🎯 Metas para Q3</h3>
+              <h3 className="font-semibold text-gray-900 mb-3">🎯 Metas para Q4</h3>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-start gap-2">
                   <span className="text-purple-500 mt-1">•</span>
-                  <span>Atingir $600K em receita regional</span>
+                  <span>Atingir $1.5M em receita</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-purple-500 mt-1">•</span>
-                  <span>Manter ROI acima de 40%</span>
+                  <span>Manter ROI acima de 50%</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-purple-500 mt-1">•</span>
-                  <span>Expandir para +2 setores por país</span>
+                  <span>Expandir para Congo (RDC)</span>
                 </li>
               </ul>
             </div>
@@ -767,7 +779,7 @@ const Analytics: React.FC = () => {
 
       {/* Comparativo Regional */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Comparativo Regional SADC</h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">Comparativo Regional SADC - Geociências</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
@@ -791,8 +803,8 @@ const Analytics: React.FC = () => {
                     <div className="w-full bg-gray-200 rounded-full h-3">
                       <div 
                         className={`h-3 rounded-full ${
-                          index === 0 ? 'bg-red-500' :
-                          index === 1 ? 'bg-blue-500' : 'bg-green-500'
+                          index === 0 ? 'bg-green-500' :
+                          index === 1 ? 'bg-blue-500' : 'bg-purple-500'
                         }`}
                         style={{ width: `${marketShare}%` }}
                       ></div>
@@ -819,11 +831,11 @@ const Analytics: React.FC = () => {
                         <span>{country.flag}</span>
                         <span className="font-medium">{country.country}</span>
                       </div>
-                      <span className="font-semibold">${efficiency.toLocaleString()}/pessoa</span>
+                      <span className="font-semibold">${efficiency.toLocaleString()}/geólogo</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
                       <div 
-                        className="bg-gradient-to-r from-purple-500 to-purple-600 h-3 rounded-full"
+                        className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full"
                         style={{ width: `${efficiencyPercentage}%` }}
                       ></div>
                     </div>
@@ -846,26 +858,26 @@ const Analytics: React.FC = () => {
             <div className="text-center">
               <div className="text-3xl mb-2">📈</div>
               <h3 className="font-semibold text-green-800 mb-2">Receita Projetada</h3>
-              <div className="text-2xl font-bold text-green-700 mb-1">$580K</div>
-              <div className="text-sm text-green-600">+24.7% vs Q3</div>
+              <div className="text-2xl font-bold text-green-700 mb-1">$1.8M</div>
+              <div className="text-sm text-green-600">+56.5% vs Q3</div>
               <div className="mt-3 w-full bg-green-200 rounded-full h-2">
-                <div className="bg-green-600 h-2 rounded-full" style={{ width: '78%' }}></div>
+                <div className="bg-green-600 h-2 rounded-full" style={{ width: '89%' }}></div>
               </div>
-              <div className="text-xs text-green-600 mt-1">78% da meta anual</div>
+              <div className="text-xs text-green-600 mt-1">89% da meta anual</div>
             </div>
           </div>
 
           {/* Projeção de Projetos */}
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
             <div className="text-center">
-              <div className="text-3xl mb-2">🚀</div>
+              <div className="text-3xl mb-2">🛢️</div>
               <h3 className="font-semibold text-blue-800 mb-2">Novos Projetos</h3>
-              <div className="text-2xl font-bold text-blue-700 mb-1">3-4</div>
-              <div className="text-sm text-blue-600">+60% vs Q3</div>
+              <div className="text-2xl font-bold text-blue-700 mb-1">4-5</div>
+              <div className="text-sm text-blue-600">+67% vs Q3</div>
               <div className="mt-3 w-full bg-blue-200 rounded-full h-2">
-                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '85%' }}></div>
+                <div className="bg-blue-600 h-2 rounded-full" style={{ width: '92%' }}></div>
               </div>
-              <div className="text-xs text-blue-600 mt-1">Meta: 4 projetos</div>
+              <div className="text-xs text-blue-600 mt-1">Meta: 5 projetos</div>
             </div>
           </div>
 
@@ -874,12 +886,12 @@ const Analytics: React.FC = () => {
             <div className="text-center">
               <div className="text-3xl mb-2">🤝</div>
               <h3 className="font-semibold text-purple-800 mb-2">Novos Clientes</h3>
-              <div className="text-2xl font-bold text-purple-700 mb-1">8-12</div>
-              <div className="text-sm text-purple-600">+20% vs Q3</div>
+              <div className="text-2xl font-bold text-purple-700 mb-1">6-8</div>
+              <div className="text-sm text-purple-600">+25% vs Q3</div>
               <div className="mt-3 w-full bg-purple-200 rounded-full h-2">
-                <div className="bg-purple-600 h-2 rounded-full" style={{ width: '67%' }}></div>
+                <div className="bg-purple-600 h-2 rounded-full" style={{ width: '78%' }}></div>
               </div>
-              <div className="text-xs text-purple-600 mt-1">Meta: 12 clientes</div>
+              <div className="text-xs text-purple-600 mt-1">Meta: 8 clientes</div>
             </div>
           </div>
 
@@ -888,12 +900,12 @@ const Analytics: React.FC = () => {
             <div className="text-center">
               <div className="text-3xl mb-2">💎</div>
               <h3 className="font-semibold text-orange-800 mb-2">ROI Projetado</h3>
-              <div className="text-2xl font-bold text-orange-700 mb-1">45-50%</div>
+              <div className="text-2xl font-bold text-orange-700 mb-1">55-60%</div>
               <div className="text-sm text-orange-600">Acima da meta</div>
               <div className="mt-3 w-full bg-orange-200 rounded-full h-2">
-                <div className="bg-orange-600 h-2 rounded-full" style={{ width: '92%' }}></div>
+                <div className="bg-orange-600 h-2 rounded-full" style={{ width: '95%' }}></div>
               </div>
-              <div className="text-xs text-orange-600 mt-1">Meta: 40%</div>
+              <div className="text-xs text-orange-600 mt-1">Meta: 50%</div>
             </div>
           </div>
         </div>
@@ -905,17 +917,17 @@ const Analytics: React.FC = () => {
             <div>
               <h4 className="font-medium text-red-700 mb-2">Riscos Identificados</h4>
               <ul className="space-y-1 text-gray-600">
-                <li>• Atraso no projeto de Transporte (235 dias restantes)</li>
-                <li>• Sazonalidade no setor de Turismo</li>
-                <li>• Flutuação cambial USD/AOA</li>
+                <li>• Atraso no projeto de Prospecção Mineral (198 dias restantes)</li>
+                <li>• Flutuação no preço do petróleo</li>
+                <li>• Escassez de especialistas em Petrel</li>
               </ul>
             </div>
             <div>
               <h4 className="font-medium text-green-700 mb-2">Oportunidades</h4>
               <ul className="space-y-1 text-gray-600">
-                <li>• Expansão para setor de Tecnologia</li>
-                <li>• Novos parceiros em Windhoek</li>
-                <li>• Demanda crescente por Telemedicina</li>
+                <li>• Expansão para Congo (RDC)</li>
+                <li>• Novos contratos com Chevron Angola</li>
+                <li>• Demanda crescente por cursos Python</li>
               </ul>
             </div>
           </div>
@@ -923,12 +935,12 @@ const Analytics: React.FC = () => {
       </div>
 
       {/* Ações Recomendadas */}
-      <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 rounded-xl p-8 text-white">
+      <div className="bg-gradient-to-r from-green-600 via-green-700 to-green-800 rounded-xl p-8 text-white">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold mb-4">🎯 Ações Estratégicas Recomendadas</h2>
-          <p className="text-red-100 max-w-3xl mx-auto">
+          <p className="text-green-100 max-w-3xl mx-auto">
             Com base na análise dos dados, estas são as ações prioritárias para maximizar 
-            o crescimento e performance do Africa's Hands na região SADC.
+            o crescimento e performance da NovaGeo na região SADC.
           </p>
         </div>
 
@@ -940,11 +952,11 @@ const Analytics: React.FC = () => {
               <span>⚡</span>
               Curto Prazo (30 dias)
             </h3>
-            <ul className="space-y-2 text-sm text-red-100">
-              <li>• Reunião de urgência - Projeto Transporte</li>
-              <li>• Contratar 2 desenvolvedores para Angola</li>
-              <li>• Lançar campanha de Telemedicina</li>
-              <li>• Revisar cronograma de projetos atrasados</li>
+            <ul className="space-y-2 text-sm text-green-100">
+              <li>• Reunião urgente - Projeto Lunda Norte</li>
+              <li>• Contratar 2 geofísicos especialistas</li>
+              <li>• Lançar novos cursos Petrel</li>
+              <li>• Revisar cronograma de projetos</li>
               <li>• Implementar dashboard de monitoramento</li>
             </ul>
           </div>
@@ -955,12 +967,12 @@ const Analytics: React.FC = () => {
               <span>📈</span>
               Médio Prazo (90 dias)
             </h3>
-            <ul className="space-y-2 text-sm text-red-100">
-              <li>• Expandir para setor de Tecnologia</li>
-              <li>• Abrir escritório em Maputo</li>
-              <li>• Criar programa de intercâmbio de equipe</li>
-              <li>• Desenvolver parceria com universidades</li>
-              <li>• Lançar marketplace B2B regional</li>
+            <ul className="space-y-2 text-sm text-green-100">
+              <li>• Expandir para setor de Mineração</li>
+              <li>• Abrir escritório em Kinshasa</li>
+              <li>• Criar programa de Field Trips</li>
+              <li>• Parceria com universidades locais</li>
+              <li>• Lançar cursos online certificados</li>
             </ul>
           </div>
 
@@ -970,18 +982,18 @@ const Analytics: React.FC = () => {
               <span>🚀</span>
               Longo Prazo (6 meses)
             </h3>
-            <ul className="space-y-2 text-sm text-red-100">
-              <li>• Expandir para Botsuana e Zâmbia</li>
-              <li>• Criar fundo de investimento regional</li>
-              <li>• Implementar IA em todos os projetos</li>
-              <li>• Estabelecer centro de inovação</li>
-              <li>• Meta: $1M receita anual</li>
+            <ul className="space-y-2 text-sm text-green-100">
+              <li>• Expandir para Moçambique e Zâmbia</li>
+              <li>• Criar centro de excelência em geociências</li>
+              <li>• Implementar IA em interpretação sísmica</li>
+              <li>• Estabelecer laboratório geológico</li>
+              <li>• Meta: $2M receita anual</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-8 text-center">
-          <button className="bg-white text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          <button className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
             📊 Gerar Relatório Executivo Completo
           </button>
         </div>
@@ -996,7 +1008,7 @@ const Analytics: React.FC = () => {
           </div>
           <div>
             <p className="font-medium text-gray-900">Fonte dos Dados</p>
-            <p>Sistema Integrado Africa's Hands</p>
+            <p>Sistema Integrado NovaGeo</p>
           </div>
           <div>
             <p className="font-medium text-gray-900">Período Analisado</p>
@@ -1010,7 +1022,7 @@ const Analytics: React.FC = () => {
         
         <div className="mt-4 pt-4 border-t border-gray-300">
           <p className="text-xs text-gray-500">
-            © 2024 Africa's Hands Analytics • Desenvolvido por Valdimir Jacinto Esteves
+            © 2024 NovaGeo Analytics • Desenvolvido por MSc. Zongo Armando
           </p>
         </div>
       </div>

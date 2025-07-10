@@ -129,8 +129,8 @@ const translations: Translations = {
     en: 'User'
   },
   'user.email': {
-    pt: 'admin@escritorioesteves.ao',
-    en: 'admin@escritorioesteves.ao'
+    pt: 'admin@.ao',
+    en: 'admin@.ao'
   },
   'user.profile': {
     pt: 'Meu Perfil',
@@ -146,11 +146,12 @@ const translations: Translations = {
   },
   'user.phoneAngola': {
     pt: 'AO: +244 924 166 401',
-    en: 'AO: +244 924 166 401'
+    en: ''
   },
   'user.phoneNamibia': {
-    pt: 'NB: +264 817 049 40',
-    en: 'NB: +264 817 049 40'
+    pt: '',
+  
+    en: ''
   },
   'user.logout': {
     pt: 'Sair',
@@ -1021,12 +1022,12 @@ const translations: Translations = {
 
   // Página de Boas-vindas
   'welcome.title': {
-    pt: "Bem-vindo ao Africa's Hands",
-    en: "Welcome to Africa's Hands"
+    pt: "Bem-vindo a NovaGeo",
+    en: "Welcome to NovaGeo"
   },
   'welcome.subtitle': {
-    pt: 'Conectando Angola 🇦🇴 Namíbia 🇳🇦 África do Sul 🇿🇦',
-    en: 'Connecting Angola 🇦🇴 Namibia 🇳🇦 South Africa 🇿🇦'
+    pt: 'Conectando Angola 🇦🇴',
+    en: 'Connecting Angola 🇦🇴 '
   },
   'welcome.accessDashboard': {
     pt: 'Acessar Dashboard',

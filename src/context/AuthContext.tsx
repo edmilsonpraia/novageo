@@ -40,8 +40,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     const checkAuthStatus = () => {
       try {
-        const savedUser = localStorage.getItem('africas_hands_user');
-        const savedRole = localStorage.getItem('africas_hands_role');
+        const savedUser = localStorage.getItem('novageo_user');
+        const savedRole = localStorage.getItem('novageo_role');
         
         if (savedUser && savedRole) {
           const userData = JSON.parse(savedUser);
@@ -50,8 +50,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       } catch (error) {
         console.error('Erro ao carregar dados de autenticação:', error);
-        localStorage.removeItem('africas_hands_user');
-        localStorage.removeItem('africas_hands_role');
+        localStorage.removeItem('novageo_user');
+        localStorage.removeItem('novageo_role');
       } finally {
         setIsLoading(false);
       }
@@ -68,6 +68,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       'Namíbia': '🇳🇦',
       'ZA': '🇿🇦',
       'África do Sul': '🇿🇦',
+      'CD': '🇨🇩',
+      'Congo (RDC)': '🇨🇩',
+      'ZM': '🇿🇲',
+      'Zâmbia': '🇿🇲',
+      'TZ': '🇹🇿',
+      'Tanzânia': '🇹🇿',
       'OTHER': '🌍'
     };
     return flags[country] || '🌍';
@@ -76,15 +82,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const createDefaultUser = (role: 'admin' | 'user', userData?: Partial<User>): User => {
     const baseUser: User = {
       id: `user_${Date.now()}`,
-      name: userData?.name || (role === 'admin' ? 'Valdimir Jacinto Esteves' : 'João Santos'),
-      email: userData?.email || (role === 'admin' ? 'admin@africashands.com' : 'user@africashands.com'),
+      name: userData?.name || (role === 'admin' ? 'Zongo Armando' : 'Maria Santos'),
+      email: userData?.email || (role === 'admin' ? 'zongo@nova-geo.com' : 'maria.santos@sonangol.co.ao'),
       role,
       country: userData?.country || 'Angola',
-      sector: userData?.sector || (role === 'admin' ? 'Gestão Executiva' : 'Saúde'),
-      organization: userData?.organization || (role === 'admin' ? 'Africa\'s Hands' : 'Hospital Josina Machel'),
+      sector: userData?.sector || (role === 'admin' ? 'Consultoria Geológica' : 'Petróleo e Gás'),
+      organization: userData?.organization || (role === 'admin' ? 'NovaGeo - Prestação de Serviços' : 'Sonangol EP'),
       avatar: userData?.avatar || (role === 'admin' 
         ? 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
-        : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+        : 'https://images.unsplash.com/photo-1494790108755-2616b612b002?w=150&h=150&fit=crop&crop=face'
       ),
       verified: true,
       lastLogin: new Date().toISOString(),
@@ -105,9 +111,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUserRole(role);
     
     // Salvar no localStorage
-    localStorage.setItem('africas_hands_user', JSON.stringify(newUser));
-    localStorage.setItem('africas_hands_role', role);
-    localStorage.setItem('africas_hands_login_time', new Date().toISOString());
+    localStorage.setItem('novageo_user', JSON.stringify(newUser));
+    localStorage.setItem('novageo_role', role);
+    localStorage.setItem('novageo_login_time', new Date().toISOString());
     
     console.log(`✅ Login realizado com sucesso: ${role}`, newUser);
   };
@@ -117,9 +123,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUserRole(null);
     
     // Limpar localStorage
-    localStorage.removeItem('africas_hands_user');
-    localStorage.removeItem('africas_hands_role');
-    localStorage.removeItem('africas_hands_login_time');
+    localStorage.removeItem('novageo_user');
+    localStorage.removeItem('novageo_role');
+    localStorage.removeItem('novageo_login_time');
     
     console.log('👋 Logout realizado com sucesso');
   };
@@ -131,7 +137,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(updatedUser);
     
     // Atualizar localStorage
-    localStorage.setItem('africas_hands_user', JSON.stringify(updatedUser));
+    localStorage.setItem('novageo_user', JSON.stringify(updatedUser));
     
     console.log('📝 Dados do usuário atualizados:', updatedUser);
   };
@@ -169,26 +175,40 @@ export const usePermissions = () => {
   const { user, userRole } = useAuth();
   
   const permissions = {
-    // Permissões de Admin
+    // Permissões de Admin (NovaGeo)
     canManageUsers: userRole === 'admin',
     canViewAllProjects: userRole === 'admin',
     canManageSystem: userRole === 'admin',
     canAccessAnalytics: userRole === 'admin',
-    canManagePartners: userRole === 'admin',
+    canManageClients: userRole === 'admin',
+    canScheduleTraining: userRole === 'admin',
+    canAccessPetrel: userRole === 'admin',
+    canManageFieldTrips: userRole === 'admin',
     
     // Permissões de Usuário
     canViewOwnProjects: true,
-    canApplyToOpportunities: true,
+    canEnrollInCourses: true,
     canUpdateProfile: true,
-    canViewResources: true,
+    canViewTrainingMaterials: true,
+    canAccessQGIS: true,
+    canAccessPythonCourses: true,
+    canBookConsultation: true,
     
     // Permissões baseadas em verificação
-    canAccessPremiumFeatures: user?.verified || false,
-    canContactDirectly: user?.verified || false,
+    canAccessAdvancedCourses: user?.verified || false,
+    canDownloadCertificates: user?.verified || false,
+    canAccessPetrelTraining: user?.verified || false,
+    canParticipateInFieldTrips: user?.verified || false,
     
-    // Permissões baseadas no país
+    // Permissões baseadas no país/região
     canAccessLocalServices: !!user?.country,
-    canParticipateInRegionalPrograms: ['AO', 'Angola', 'NA', 'Namíbia', 'ZA', 'África do Sul'].includes(user?.country || ''),
+    canAccessSADCPrograms: ['AO', 'Angola', 'NA', 'Namíbia', 'ZA', 'África do Sul', 'CD', 'Congo (RDC)', 'ZM', 'Zâmbia', 'TZ', 'Tanzânia'].includes(user?.country || ''),
+    canAccessOffshoreTraining: ['AO', 'Angola'].includes(user?.country || ''),
+    
+    // Permissões baseadas no setor
+    canAccessOilGasContent: ['Petróleo e Gás', 'Exploração Petrolífera', 'Geofísica'].includes(user?.sector || ''),
+    canAccessMiningContent: ['Mineração', 'Geologia Mineral', 'Prospecção'].includes(user?.sector || ''),
+    canAccessAcademicContent: ['Universidade', 'Ensino Superior', 'Pesquisa'].includes(user?.sector || ''),
   };
   
   return permissions;
@@ -208,6 +228,12 @@ export const useUserProfile = () => {
       'Namíbia': '🇳🇦',
       'ZA': '🇿🇦',
       'África do Sul': '🇿🇦',
+      'CD': '🇨🇩',
+      'Congo (RDC)': '🇨🇩',
+      'ZM': '🇿🇲',
+      'Zâmbia': '🇿🇲',
+      'TZ': '🇹🇿',
+      'Tanzânia': '🇹🇿',
       'OTHER': '🌍'
     };
     return flags[country] || '🌍';
@@ -215,17 +241,21 @@ export const useUserProfile = () => {
 
   const getSectorIcon = (sector: string) => {
     const icons: { [key: string]: string } = {
-      'Saúde': '🏥',
-      'Educação': '🎓',
-      'Turismo': '🏨',
-      'Comércio': '🛒',
-      'Transporte': '✈️',
-      'Tecnologia': '💻',
-      'Gestão Executiva': '👨‍💼',
+      'Petróleo e Gás': '⛽',
+      'Exploração Petrolífera': '🛢️',
+      'Mineração': '⛏️',
+      'Geologia Mineral': '💎',
+      'Prospecção': '🔍',
+      'Geofísica': '🌍',
+      'Consultoria Geológica': '🗺️',
+      'Universidade': '🎓',
+      'Ensino Superior': '📚',
+      'Pesquisa': '🔬',
       'Governo': '🏛️',
-      'ONGs': '🤝'
+      'Tecnologia': '💻',
+      'Ambiental': '🌱'
     };
-    return icons[sector || ''] || '💼';
+    return icons[sector || ''] || '🏢';
   };
 
   return {
