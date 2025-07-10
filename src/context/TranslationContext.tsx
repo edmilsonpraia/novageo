@@ -129,8 +129,8 @@ const translations: Translations = {
     en: 'User'
   },
   'user.email': {
-    pt: 'admin@.ao',
-    en: 'admin@.ao'
+    pt: 'admin@mail.ao',
+    en: 'admin@mail.ao'
   },
   'user.profile': {
     pt: 'Meu Perfil',
@@ -145,13 +145,9 @@ const translations: Translations = {
     en: 'Contact'
   },
   'user.phoneAngola': {
-    pt: 'AO: +244 924 166 401',
-    en: ''
-  },
-  'user.phoneNamibia': {
-    pt: '',
+    pt: 'AO: +244 923 577 164',
+    en: 'AO: +244 923 577 164'
   
-    en: ''
   },
   'user.logout': {
     pt: 'Sair',
