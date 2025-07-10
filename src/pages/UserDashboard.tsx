@@ -26,6 +26,24 @@ interface UserProfile {
   avatar: string;
 }
 
+interface CourseRegistrationForm {
+  nomeCompleto: string;
+  email: string;
+  whatsapp: string;
+  residencia: string;
+  grauAcademico: string;
+  grauAcademicoOutro: string;
+  cursoAtual: string;
+  cursoAtualOutro: string;
+  instituicao: string;
+  modalidade: string;
+  modalidadeOutro: string;
+  comoConheceu: string;
+  comoConheceuOutro: string;
+  beneficioCarreira: string;
+  concordaTermos: boolean;
+}
+
 const UserDashboardMobile: React.FC = () => {
   const [activeTab, setActiveTab] = useState('opportunities');
   const [selectedSector, setSelectedSector] = useState('all');
@@ -39,6 +57,28 @@ const UserDashboardMobile: React.FC = () => {
     phone: '',
     message: ''
   });
+  
+  // Novo estado para o formulário de inscrição no curso
+  const [showCourseRegistration, setShowCourseRegistration] = useState(false);
+  const [selectedCourseForRegistration, setSelectedCourseForRegistration] = useState<Opportunity | null>(null);
+  const [courseRegistrationData, setCourseRegistrationData] = useState<CourseRegistrationForm>({
+    nomeCompleto: '',
+    email: '',
+    whatsapp: '',
+    residencia: '',
+    grauAcademico: '',
+    grauAcademicoOutro: '',
+    cursoAtual: '',
+    cursoAtualOutro: '',
+    instituicao: '',
+    modalidade: '',
+    modalidadeOutro: '',
+    comoConheceu: '',
+    comoConheceuOutro: '',
+    beneficioCarreira: '',
+    concordaTermos: false
+  });
+
   const { t } = useTranslation();
 
   // Perfil do usuário
@@ -244,6 +284,65 @@ const UserDashboardMobile: React.FC = () => {
     // Mostrar mensagem de sucesso (você pode personalizar isso)
     alert(t('form.requestSent') || 'Solicitação enviada com sucesso!');
     closeRequestForm();
+  };
+
+  // Novas funções para o formulário de inscrição no curso
+  const openCourseRegistration = (course: Opportunity) => {
+    setSelectedCourseForRegistration(course);
+    setShowCourseRegistration(true);
+  };
+
+  const closeCourseRegistration = () => {
+    setShowCourseRegistration(false);
+    setSelectedCourseForRegistration(null);
+    setCourseRegistrationData({
+      nomeCompleto: '',
+      email: '',
+      whatsapp: '',
+      residencia: '',
+      grauAcademico: '',
+      grauAcademicoOutro: '',
+      cursoAtual: '',
+      cursoAtualOutro: '',
+      instituicao: '',
+      modalidade: '',
+      modalidadeOutro: '',
+      comoConheceu: '',
+      comoConheceuOutro: '',
+      beneficioCarreira: '',
+      concordaTermos: false
+    });
+  };
+
+  const handleCourseRegistrationChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+    setCourseRegistrationData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    }));
+  };
+
+  const handleCourseRegistrationSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Validação básica
+    if (!courseRegistrationData.nomeCompleto || !courseRegistrationData.email || !courseRegistrationData.whatsapp || 
+        !courseRegistrationData.residencia || !courseRegistrationData.grauAcademico || !courseRegistrationData.cursoAtual ||
+        !courseRegistrationData.modalidade || !courseRegistrationData.comoConheceu || !courseRegistrationData.beneficioCarreira ||
+        !courseRegistrationData.concordaTermos) {
+      alert('Por favor, preencha todos os campos obrigatórios e aceite os termos e condições.');
+      return;
+    }
+
+    // Aqui você pode adicionar a lógica para enviar os dados
+    console.log('Inscrição no curso enviada:', {
+      curso: selectedCourseForRegistration?.title,
+      ...courseRegistrationData
+    });
+    
+    // Mostrar mensagem de sucesso
+    alert('Inscrição enviada com sucesso! Aguarde nosso contato para instruções sobre o processo de seleção e pagamento.');
+    closeCourseRegistration();
   };
 
   // Estatísticas baseadas nos cursos reais da NovaGeo
@@ -989,6 +1088,353 @@ const UserDashboardMobile: React.FC = () => {
         </div>
       )}
 
+      {/* Modal de Inscrição no Curso - NOVO FORMULÁRIO BASEADO NO GOOGLE FORM */}
+      {showCourseRegistration && selectedCourseForRegistration && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            {/* Header do Modal */}
+            <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 rounded-t-xl">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🎓</span>
+                  <h2 className="text-lg font-bold">Inscrição no Curso</h2>
+                </div>
+                <button
+                  onClick={closeCourseRegistration}
+                  className="text-white hover:text-green-200 p-1"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <p className="text-green-100 text-sm mt-1">{selectedCourseForRegistration.title}</p>
+              <p className="text-green-100 text-xs">NOVAGEO - PRESTAÇÃO DE SERVIÇOS (SU), LDA</p>
+            </div>
+
+            {/* Informações da Organização */}
+            <div className="p-4 bg-green-50 border-b border-green-200">
+              <div className="text-xs text-green-800 space-y-1">
+                <p><strong>ORGANIZAÇÃO:</strong> NOVAGEO - PRESTAÇÃO DE SERVIÇOS (SU), LDA</p>
+                <p><strong>NIF:</strong> 5002077655</p>
+                <p><strong>CHAMADAS/WHATSAPP:</strong> +244 923 577 164</p>
+                <p><strong>E-MAIL:</strong> info@nova-geo.com</p>
+                <p><strong>LOCALIZAÇÃO:</strong> Centralidade do Kilamba, W24, Porta 114</p>
+              </div>
+            </div>
+
+            {/* Formulário de Inscrição */}
+            <form onSubmit={handleCourseRegistrationSubmit} className="p-4">
+              <div className="space-y-4">
+                {/* 1. Nome completo */}
+                <div>
+                  <label htmlFor="nomeCompleto" className="block text-sm font-medium text-gray-700 mb-1">
+                    1. Nome completo *
+                  </label>
+                  <input
+                    type="text"
+                    id="nomeCompleto"
+                    name="nomeCompleto"
+                    value={courseRegistrationData.nomeCompleto}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Digite seu nome completo"
+                  />
+                </div>
+
+                {/* 2. E-mail */}
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    2. E-mail *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={courseRegistrationData.email}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Digite seu e-mail"
+                  />
+                </div>
+
+                {/* 3. WhatsApp */}
+                <div>
+                  <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 mb-1">
+                    3. WhatsApp *
+                  </label>
+                  <input
+                    type="tel"
+                    id="whatsapp"
+                    name="whatsapp"
+                    value={courseRegistrationData.whatsapp}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="+244 923 577 164"
+                  />
+                </div>
+
+                {/* 4. Residência atual/Localização */}
+                <div>
+                  <label htmlFor="residencia" className="block text-sm font-medium text-gray-700 mb-1">
+                    4. Residência atual/Localização *
+                  </label>
+                  <input
+                    type="text"
+                    id="residencia"
+                    name="residencia"
+                    value={courseRegistrationData.residencia}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Digite sua localização atual"
+                  />
+                </div>
+
+                {/* 5. Grau académico */}
+                <div>
+                  <label htmlFor="grauAcademico" className="block text-sm font-medium text-gray-700 mb-1">
+                    5. Grau académico *
+                  </label>
+                  <select
+                    id="grauAcademico"
+                    name="grauAcademico"
+                    value={courseRegistrationData.grauAcademico}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  >
+                    <option value="">Selecione seu grau académico</option>
+                    <option value="Bacharelato">Bacharelato</option>
+                    <option value="Licenciatura">Licenciatura</option>
+                    <option value="Mestrado">Mestrado</option>
+                    <option value="Doutoramento">Doutoramento</option>
+                    <option value="Pós-Doutoramento">Pós-Doutoramento</option>
+                    <option value="Mestrado Integrado">Mestrado Integrado</option>
+                    <option value="Pós-Graduação">Pós-Graduação</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                  {courseRegistrationData.grauAcademico === 'Outro' && (
+                    <input
+                      type="text"
+                      name="grauAcademicoOutro"
+                      value={courseRegistrationData.grauAcademicoOutro}
+                      onChange={handleCourseRegistrationChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2"
+                      placeholder="Especifique outro grau académico"
+                    />
+                  )}
+                </div>
+
+                {/* 6. Curso atual ou último curso concluído */}
+                <div>
+                  <label htmlFor="cursoAtual" className="block text-sm font-medium text-gray-700 mb-1">
+                    6. Curso atual ou último curso concluído *
+                  </label>
+                  <select
+                    id="cursoAtual"
+                    name="cursoAtual"
+                    value={courseRegistrationData.cursoAtual}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  >
+                    <option value="">Selecione seu curso</option>
+                    <option value="Geologia/Geociências">Geologia/Geociências</option>
+                    <option value="Engenharia Geológica">Engenharia Geológica</option>
+                    <option value="Engenharia Geotécnica">Engenharia Geotécnica</option>
+                    <option value="Engenharia de Minas">Engenharia de Minas</option>
+                    <option value="Engenharia do Ambiente">Engenharia do Ambiente</option>
+                    <option value="Ciências do Ambiente">Ciências do Ambiente</option>
+                    <option value="Geofísica">Geofísica</option>
+                    <option value="Engenharia do petróleo">Engenharia do petróleo</option>
+                    <option value="Engenharia geográfica">Engenharia geográfica</option>
+                    <option value="Topografia">Topografia</option>
+                    <option value="Construção civil">Construção civil</option>
+                    <option value="Arquitetura">Arquitetura</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                  {courseRegistrationData.cursoAtual === 'Outro' && (
+                    <input
+                      type="text"
+                      name="cursoAtualOutro"
+                      value={courseRegistrationData.cursoAtualOutro}
+                      onChange={handleCourseRegistrationChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2"
+                      placeholder="Especifique outro curso"
+                    />
+                  )}
+                </div>
+
+                {/* 7. Instituição */}
+                <div>
+                  <label htmlFor="instituicao" className="block text-sm font-medium text-gray-700 mb-1">
+                    7. Instituição (se aplicável)
+                  </label>
+                  <input
+                    type="text"
+                    id="instituicao"
+                    name="instituicao"
+                    value={courseRegistrationData.instituicao}
+                    onChange={handleCourseRegistrationChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Nome da instituição"
+                  />
+                </div>
+
+                {/* 8. Modalidade */}
+                <div>
+                  <label htmlFor="modalidade" className="block text-sm font-medium text-gray-700 mb-1">
+                    8. Modalidade *
+                  </label>
+                  <select
+                    id="modalidade"
+                    name="modalidade"
+                    value={courseRegistrationData.modalidade}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  >
+                    <option value="">Selecione a modalidade</option>
+                    <option value="Em turma">Em turma</option>
+                    <option value="Individual online">Individual online</option>
+                    <option value="Individual nas instalações da NOVAGEO">Individual nas instalações da NOVAGEO</option>
+                    <option value="Individual ao domicílio">Individual ao domicílio</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                  {courseRegistrationData.modalidade === 'Outro' && (
+                    <input
+                      type="text"
+                      name="modalidadeOutro"
+                      value={courseRegistrationData.modalidadeOutro}
+                      onChange={handleCourseRegistrationChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2"
+                      placeholder="Especifique outra modalidade"
+                    />
+                  )}
+                </div>
+
+                {/* 9. Como tomou conhecimento do curso */}
+                <div>
+                  <label htmlFor="comoConheceu" className="block text-sm font-medium text-gray-700 mb-1">
+                    9. Como tomou conhecimento do curso? *
+                  </label>
+                  <select
+                    id="comoConheceu"
+                    name="comoConheceu"
+                    value={courseRegistrationData.comoConheceu}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  >
+                    <option value="">Selecione uma opção</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Indicação de amigos">Indicação de amigos</option>
+                    <option value="E-mail">E-mail</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                  {courseRegistrationData.comoConheceu === 'Outro' && (
+                    <input
+                      type="text"
+                      name="comoConheceuOutro"
+                      value={courseRegistrationData.comoConheceuOutro}
+                      onChange={handleCourseRegistrationChange}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent mt-2"
+                      placeholder="Especifique como conheceu"
+                    />
+                  )}
+                </div>
+
+                {/* 10. Como você acredita que essa formação irá beneficiar sua carreira/projetos */}
+                <div>
+                  <label htmlFor="beneficioCarreira" className="block text-sm font-medium text-gray-700 mb-1">
+                    10. Como você acredita que essa formação irá beneficiar sua carreira/projetos? *
+                  </label>
+                  <textarea
+                    id="beneficioCarreira"
+                    name="beneficioCarreira"
+                    value={courseRegistrationData.beneficioCarreira}
+                    onChange={handleCourseRegistrationChange}
+                    required
+                    rows={4}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                    placeholder="Descreva como esta formação irá beneficiar sua carreira ou projetos..."
+                  />
+                </div>
+
+                {/* 11. Concordância com termos */}
+                <div>
+                  <label className="flex items-start gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      name="concordaTermos"
+                      checked={courseRegistrationData.concordaTermos}
+                      onChange={handleCourseRegistrationChange}
+                      required
+                      className="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                    />
+                    <span className="text-gray-700">
+                      11. Li e concordo com os termos e condições da formação em Geociências *
+                    </span>
+                  </label>
+                </div>
+
+                {/* Informações do Curso */}
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+                  <div className="flex items-center gap-2 text-sm text-gray-700">
+                    <span className="text-lg">🎓</span>
+                    <div>
+                      <p className="font-medium">Curso selecionado:</p>
+                      <p className="text-green-600 font-semibold">{selectedCourseForRegistration.title}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Valor: {selectedCourseForRegistration.budget?.toLocaleString('pt-AO')} Kz • Formador: Zongo Armando
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        Prazo: {new Date(selectedCourseForRegistration.deadline).toLocaleDateString('pt-AO')}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Notas importantes */}
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                  <h4 className="font-medium text-yellow-800 mb-2">📋 Notas Importantes:</h4>
+                  <div className="text-xs text-yellow-700 space-y-1">
+                    <p>• Após enviar esta inscrição, aguarde nosso contato para instruções sobre seleção e pagamento.</p>
+                    <p>• A formação é paga em duas prestações: 50% antes do início e 50% antes do segundo módulo.</p>
+                    <p>• Ex-formandos têm 10% de desconto nas próximas formações.</p>
+                    <p>• Em caso de desistência, não haverá reembolso.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botões */}
+              <div className="flex gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={closeCourseRegistration}
+                  className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-medium text-sm"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 bg-green-600 text-white py-3 rounded-lg font-medium text-sm"
+                >
+                  📤 Enviar Inscrição
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Navegação por Abas Mobile */}
       <div className="bg-white border-t border-gray-200 sticky top-0 z-40">
         <div className="flex overflow-x-auto">
@@ -1064,7 +1510,10 @@ const UserDashboardMobile: React.FC = () => {
                           </span>
                         </div>
                         <div className="flex gap-2">
-                          <button className="flex-1 bg-green-600 text-white py-1 px-3 rounded text-xs font-medium">
+                          <button 
+                            onClick={() => openCourseRegistration(opportunity)}
+                            className="flex-1 bg-green-600 text-white py-1 px-3 rounded text-xs font-medium"
+                          >
                             📚 Inscrever-se
                           </button>
                           <button className="bg-gray-100 text-gray-700 py-1 px-3 rounded text-xs">
